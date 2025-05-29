@@ -17,4 +17,12 @@ $(document).ready(function () {
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
   });
+
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute("content", paper.metadata.description);
+  document
+    .querySelector('meta[name="keywords"]')
+    .setAttribute("content", paper.metadata.keywords);
+  document.title = paper.metadata.title;
 });
