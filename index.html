@@ -93,10 +93,11 @@
                 <div class="is-size-5 publication-authors">
                   {{#each paper.authors}}
                     <span class="author-block">
-                      <a
-                        href="{{links.website}}"
-                        target="_blank"
-                      >{{name}}</a><sup>{{affiliation.number}}</sup>{{#unless
+                      {{#if links.website}}
+                        <a href="{{links.website}}" target="_blank">{{name}}</a>
+                      {{else}}
+                        {{name}}
+                      {{/if}}<sup>{{affiliation.number}}</sup>{{#unless
                         @last
                       }},{{/unless}}
                     </span>

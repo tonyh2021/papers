@@ -26,7 +26,6 @@ const paper = {
       },
       links: {
         website: "https://johndoe.com",
-        google_scholar: "https://scholar.google.com/xxx",
       },
     },
     {
@@ -34,10 +33,6 @@ const paper = {
       affiliation: {
         name: "Another University",
         number: "2",
-      },
-      links: {
-        website: "https://janesmith.com",
-        google_scholar: "https://scholar.google.com/yyy",
       },
     },
   ],
