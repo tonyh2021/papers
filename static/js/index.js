@@ -31,8 +31,5 @@ $(document).ready(function () {
   document
     .querySelector('meta[name="description"]')
     .setAttribute("content", paper.metadata.description);
-  document
-    .querySelector('meta[name="keywords"]')
-    .setAttribute("content", paper.metadata.keywords);
   document.title = paper.metadata.title;
 });

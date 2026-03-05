@@ -2,7 +2,7 @@ const paper = {
   metadata: {
     title: "This is a title",
     description: "This is a description",
-    keywords: ["This", "Is", "A", "Keyword"],
+    url: "https://tonyhx2021.github.io/papers/",
   },
   navbar: {
     home_link: "https://example.com",
