@@ -1,5 +1,47 @@
 body {
+  font-size: 16px;
+  line-height: 1.7;
   font-family: "Noto Sans", sans-serif;
+}
+
+.content {
+  max-width: 760px;
+  margin: auto;
+}
+
+.section {
+  font-family: Georgia, serif;
+}
+
+h1,
+.title.is-1 {
+  font-size: 28px;
+}
+
+h2,
+.title.is-2,
+.title.is-3 {
+  font-size: 23px;
+}
+
+h3,
+.title.is-4 {
+  font-size: 19px;
+}
+
+figcaption,
+.publication-image-caption {
+  font-size: 14px;
+  color: #555;
+}
+
+.references {
+  font-size: 14px;
+}
+
+code,
+pre {
+  font-size: 14px;
 }
 
 .footer .icon-link {
@@ -110,8 +152,6 @@ body {
 
 .publication-image-caption {
   margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #555;
   text-align: center;
 }
 

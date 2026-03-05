@@ -97,17 +97,16 @@
                         <a href="{{links.website}}" target="_blank">{{name}}</a>
                       {{else}}
                         {{name}}
-                      {{/if}}{{#if equal_contribution}}<sup>†</sup>{{/if}}<sup>{{affiliation.number}}</sup>{{#unless
-                        @last
-                      }},{{/unless}}
+                      {{/if}}{{#if equal_contribution}}<sup
+                        >†&nbsp;</sup>{{/if}}<sup
+                      >{{affiliation.number}}</sup>{{#unless @last}},{{/unless}}
                     </span>
                   {{/each}}
                 </div>
 
-                {{#if (hasEqualContribution paper.authors)}}
-                <div class="is-size-6"><sup>†</sup>&nbsp;Equal contribution</div>
+                <div class="is-size-6 publication-authors"><sup>†</sup>&nbsp;Equal contribution</div>
+
                 <br />
-                {{/if}}
 
                 <div class="is-size-5 publication-authors">
                   {{#each paper.affiliations}}
@@ -141,10 +140,10 @@
         </div>
       </section>
 
-      {{#if (hasItems paper.content.intro_blocks)}}
+      {{#if (hasItems paper.content.intros)}}
       <section class="section">
         <div class="container is-max-desktop">
-          {{#each paper.content.intro_blocks}}
+          {{#each paper.content.intros}}
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
                 <h2 class="title is-3">{{title}}</h2>
@@ -200,18 +199,18 @@
       <!--/ Sections. -->
 
       <!-- Conclusion. -->
-      {{#if (hasItems paper.content.conclusion)}}
+      {{#if (hasItems paper.content.conclusion.paragraphs)}}
         <section class="section">
           <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
-                <h2 class="title is-3">Conclusion</h2>
+                <h2 class="title is-3">{{paper.content.conclusion.title}}</h2>
               </div>
             </div>
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
                 <div class="content has-text-justified">
-                  {{#each paper.content.conclusion}}
+                  {{#each paper.content.conclusion.paragraphs}}
                     <p>{{this}}</p>
                   {{/each}}
                 </div>

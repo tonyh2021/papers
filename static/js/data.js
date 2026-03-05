@@ -62,8 +62,7 @@ const paper = {
     },
   ],
   content: {
-    // 至少有一项时该 section 才渲染；每项 type 为 "abstract"（用 text）或 "contributions"（用 items）
-    intro_blocks: [
+    intros: [
       {
         type: "abstract",
         title: "Abstract",
@@ -99,7 +98,10 @@ const paper = {
         text: "In this case study, we demonstrate...",
       },
     ],
-    conclusion: ["In conclusion, our work demonstrates..."],
+    conclusion: {
+      title: "Conclusion",
+      paragraphs: ["In conclusion, our work demonstrates..."],
+    },
   },
   bibtex: `@article{xxx,
     author    = {xxx},
