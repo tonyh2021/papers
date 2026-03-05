@@ -1,3 +1,7 @@
+:root {
+  --content-width: 960px;
+}
+
 body {
   font-size: 16px;
   line-height: 1.7;
@@ -5,8 +9,30 @@ body {
 }
 
 .content {
-  max-width: 760px;
+  max-width: var(--content-width);
   margin: auto;
+}
+
+/* Let section columns use full container width so .content can use --content-width */
+.section .column.is-four-fifths {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Section images use same width as .content */
+.publication-image {
+  width: var(--content-width);
+  max-width: calc(100vw - 2rem);
+  margin-left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.publication-image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .section {
@@ -33,6 +59,11 @@ figcaption,
 .publication-image-caption {
   font-size: 14px;
   color: #555;
+}
+
+.publication-image-caption {
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
 .references {
@@ -143,16 +174,6 @@ pre {
   left: 0;
   width: 100%;
   height: 100%;
-}
-
-.publication-image {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.publication-image-caption {
-  margin-top: 0.5rem;
-  text-align: center;
 }
 
 .publication-body img {
