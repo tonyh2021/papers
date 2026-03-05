@@ -1,3 +1,13 @@
+Handlebars.registerHelper("eq", function (a, b) {
+  return a === b;
+});
+Handlebars.registerHelper("hasItems", function (arr) {
+  return arr && arr.length > 0;
+});
+Handlebars.registerHelper("hasEqualContribution", function (authors) {
+  return authors && authors.some((a) => a.equal_contribution);
+});
+
 $(document).ready(function () {
   // Get the template source
   const source = $("#paper-template").html();

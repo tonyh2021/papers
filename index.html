@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -97,19 +97,23 @@
                         <a href="{{links.website}}" target="_blank">{{name}}</a>
                       {{else}}
                         {{name}}
-                      {{/if}}<sup>{{affiliation.number}}</sup>{{#unless
+                      {{/if}}{{#if equal_contribution}}<sup>†</sup>{{/if}}<sup>{{affiliation.number}}</sup>{{#unless
                         @last
                       }},{{/unless}}
                     </span>
                   {{/each}}
                 </div>
 
+                {{#if (hasEqualContribution paper.authors)}}
+                <div class="is-size-6"><sup>†</sup>&nbsp;Equal contribution</div>
+                <br />
+                {{/if}}
+
                 <div class="is-size-5 publication-authors">
-                  {{#each paper.authors}}
+                  {{#each paper.affiliations}}
                     <span class="author-block"><sup
-                      >{{affiliation.number}}</sup>{{affiliation.name}}{{#unless
-                        @last
-                      }},{{/unless}}</span>
+                      >{{number}}</sup>{{name}}{{#unless @last}},
+                      {{/unless}}</span>
                   {{/each}}
                 </div>
 
@@ -137,144 +141,66 @@
         </div>
       </section>
 
+      {{#if (hasItems paper.content.intro_blocks)}}
       <section class="section">
         <div class="container is-max-desktop">
-          <!-- Abstract. -->
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <h2 class="title is-3">Abstract</h2>
-              <div class="content has-text-justified">
-                <p>
-                  {{paper.content.abstract}}
-                </p>
-              </div>
-            </div>
-          </div>
-          <!--/ Abstract. -->
-
-          <!-- Key contributions. -->
-          {{#if paper.content.contributions}}
+          {{#each paper.content.intro_blocks}}
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
-                <h2 class="title is-3">Key Contributions</h2>
+                <h2 class="title is-3">{{title}}</h2>
                 <div class="content has-text-justified">
-                  <ul>
-                    {{#each paper.content.contributions}}
-                      <li>{{this}}</li>
-                    {{/each}}
-                  </ul>
+                  {{#if (eq type "abstract")}}
+                    <p>{{text}}</p>
+                  {{/if}}
+                  {{#if (eq type "contributions")}}
+                    <ul>
+                      {{#each items}}
+                        <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{/if}}
                 </div>
               </div>
             </div>
-          {{/if}}
-          <!--/ Key contributions. -->
+          {{/each}}
         </div>
       </section>
+      {{/if}}
 
-      <!-- Architecture. -->
-      {{#if paper.content.sections.architecture}}
+      <!-- Sections (loop). -->
+      {{#each paper.content.sections}}
         <section class="section">
           <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
-                <h2 class="title is-3">Architecture</h2>
-                {{#if paper.content.sections.architecture.image}}
+                <h2 class="title is-3">{{title}}</h2>
+                {{#if image}}
                   <div class="publication-image">
-                    <img
-                      src="{{paper.content.sections.architecture.image}}"
-                      alt="Architecture"
-                    />
+                    <img src="{{image}}" alt="{{#if image_name}}{{image_name}}{{else}}{{title}}{{/if}}" />
+                    {{#if image_name}}
+                      <p class="publication-image-caption">{{image_name}}</p>
+                    {{/if}}
                   </div>
                 {{/if}}
               </div>
             </div>
 
-            {{#if paper.content.sections.architecture.text}}
+            {{#if text}}
               <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
                   <div class="content has-text-justified">
-                    <p>
-                      {{paper.content.sections.architecture.text}}
-                    </p>
+                    <p>{{text}}</p>
                   </div>
                 </div>
               </div>
             {{/if}}
           </div>
         </section>
-      {{/if}}
-      <!--/ Architecture. -->
-
-      <!-- Experiments. -->
-      {{#if paper.content.sections.experiments}}
-        <section class="section">
-          <div class="container is-max-desktop">
-            <div class="columns is-centered has-text-centered">
-              <div class="column is-four-fifths">
-                <h2 class="title is-3">Experiments</h2>
-                {{#if paper.content.sections.experiments.image}}
-                  <div class="publication-image">
-                    <img
-                      src="{{paper.content.sections.experiments.image}}"
-                      alt="Experiments"
-                    />
-                  </div>
-                {{/if}}
-              </div>
-            </div>
-
-            {{#if paper.content.sections.experiments.text}}
-              <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                  <div class="content has-text-justified">
-                    <p>
-                      {{paper.content.sections.experiments.text}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            {{/if}}
-          </div>
-        </section>
-      {{/if}}
-      <!--/ Experiments. -->
-
-      <!-- Case Study. -->
-      {{#if paper.content.sections.case_study}}
-        <section class="section">
-          <div class="container is-max-desktop">
-            <div class="columns is-centered has-text-centered">
-              <div class="column is-four-fifths">
-                <h2 class="title is-3">Case Study</h2>
-                {{#if paper.content.sections.case_study.image}}
-                  <div class="publication-image">
-                    <img
-                      src="{{paper.content.sections.case_study.image}}"
-                      alt="Case Study"
-                    />
-                  </div>
-                {{/if}}
-              </div>
-            </div>
-
-            {{#if paper.content.sections.case_study.text}}
-              <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                  <div class="content has-text-justified">
-                    <p>
-                      {{paper.content.sections.case_study.text}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            {{/if}}
-          </div>
-        </section>
-      {{/if}}
-      <!--/ Case Study. -->
+      {{/each}}
+      <!--/ Sections. -->
 
       <!-- Conclusion. -->
-      {{#if paper.content.conclusion}}
+      {{#if (hasItems paper.content.conclusion)}}
         <section class="section">
           <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
@@ -285,9 +211,9 @@
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
                 <div class="content has-text-justified">
-                  <p>
-                    {{paper.content.conclusion}}
-                  </p>
+                  {{#each paper.content.conclusion}}
+                    <p>{{this}}</p>
+                  {{/each}}
                 </div>
               </div>
             </div>

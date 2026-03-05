@@ -17,23 +17,21 @@ const paper = {
       },
     ],
   },
+  affiliations: [
+    { number: "1", name: "University of Example" },
+    { number: "2", name: "Another University" },
+  ],
   authors: [
     {
       name: "John Doe",
-      affiliation: {
-        name: "University of Example",
-        number: "1",
-      },
+      affiliation: { number: "1" },
       links: {
         website: "https://johndoe.com",
       },
     },
     {
       name: "Jane Smith",
-      affiliation: {
-        name: "Another University",
-        number: "2",
-      },
+      affiliation: { number: "2" },
     },
   ],
   link_items: [
@@ -64,28 +62,44 @@ const paper = {
     },
   ],
   content: {
-    abstract:
-      "This is the abstract of the paper. It provides a brief overview of the research and its significance.",
-    contributions: [
-      "First key contribution",
-      "Second key contribution",
-      "Third key contribution",
+    // 至少有一项时该 section 才渲染；每项 type 为 "abstract"（用 text）或 "contributions"（用 items）
+    intro_blocks: [
+      {
+        type: "abstract",
+        title: "Abstract",
+        text: "This is the abstract of the paper. It provides a brief overview of the research and its significance.",
+      },
+      {
+        type: "contributions",
+        title: "Key Contributions",
+        items: [
+          "First key contribution",
+          "Second key contribution",
+          "Third key contribution",
+        ],
+      },
     ],
-    sections: {
-      architecture: {
+    sections: [
+      {
+        title: "Architecture",
         image: "./static/images/sample.jpg",
+        image_name: "Figure 1 — Architecture",
         text: "The architecture consists of...",
       },
-      experiments: {
+      {
+        title: "Experiments",
         image: "./static/images/sample.jpg",
+        image_name: "Figure 2 — Experiments",
         text: "Our experiments show that...",
       },
-      case_study: {
+      {
+        title: "Case Study",
         image: "./static/images/sample.jpg",
+        image_name: "Figure 3 — Case Study",
         text: "In this case study, we demonstrate...",
       },
-    },
-    conclusion: "In conclusion, our work demonstrates...",
+    ],
+    conclusion: ["In conclusion, our work demonstrates..."],
   },
   bibtex: `@article{xxx,
     author    = {xxx},
