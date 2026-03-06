@@ -149,17 +149,28 @@
           {{#each paper.content.intros}}
             <div class="columns is-centered has-text-centered">
               <div class="column is-four-fifths">
-                <h2 class="title is-3">{{title}}</h2>
+                {{#if title}}<h2 class="title is-3">{{title}}</h2>{{/if}}
                 <div class="content has-text-justified">
-                  {{#if (eq type "abstract")}}
-                    <p>{{text}}</p>
+                  {{#if video}}
+                    <div class="content-block-media">
+                      <video src="{{video.src}}" controls playsinline></video>
+                      {{#if video.caption}}
+                        <p class="content-block-caption">{{video.caption}}</p>
+                      {{/if}}
+                    </div>
                   {{/if}}
-                  {{#if (eq type "contributions")}}
-                    <ul>
-                      {{#each items}}
-                        <li>{{this}}</li>
+                  {{#if (hasItems paragraphs)}}
+                    {{#if (eq paragraphStyle "list")}}
+                      <ul>
+                        {{#each paragraphs}}
+                          <li>{{text}}</li>
+                        {{/each}}
+                      </ul>
+                    {{else}}
+                      {{#each paragraphs}}
+                        <p>{{text}}</p>
                       {{/each}}
-                    </ul>
+                    {{/if}}
                   {{/if}}
                 </div>
               </div>
@@ -177,21 +188,23 @@
               <div class="column is-four-fifths">
                 <h2 class="title is-3">{{title}}</h2>
                 {{#if image}}
-                  <div class="publication-image">
-                    <img src="{{image}}" alt="{{#if image_name}}{{image_name}}{{else}}{{title}}{{/if}}" />
-                    {{#if image_name}}
-                      <p class="publication-image-caption">{{image_name}}</p>
+                  <div class="content-block-media">
+                    <img src="{{image.src}}" alt="{{#if image.caption}}{{image.caption}}{{else}}{{title}}{{/if}}" />
+                    {{#if image.caption}}
+                      <p class="content-block-caption">{{image.caption}}</p>
                     {{/if}}
                   </div>
                 {{/if}}
               </div>
             </div>
 
-            {{#if text}}
+            {{#if (hasItems paragraphs)}}
               <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
                   <div class="content has-text-justified">
-                    <p>{{text}}</p>
+                    {{#each paragraphs}}
+                      <p>{{text}}</p>
+                    {{/each}}
                   </div>
                 </div>
               </div>
@@ -214,7 +227,7 @@
               <div class="column is-four-fifths">
                 <div class="content has-text-justified">
                   {{#each paper.content.conclusion.paragraphs}}
-                    <p>{{this}}</p>
+                    <p>{{text}}</p>
                   {{/each}}
                 </div>
               </div>

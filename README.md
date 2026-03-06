@@ -26,21 +26,26 @@ If you use “Deploy from a branch”, the live site serves the raw template and
   - `authors` — name, `affiliation.number`, optional `equal_contribution`, optional `links.website`
   - `affiliations` — `number`, `name`
   - `link_items` — name, link, icon (e.g. `fas fa-file-pdf`, `ai ai-arxiv`)
-  - `content.intros` — array of intro blocks: `type` `"abstract"` (use `text`) or `"contributions"` (use `items`), plus `title`
-  - `content.sections` — title, optional `image`, `image_name`, optional `text`
-  - `content.conclusion` — `title`, `paragraphs` (array of strings)
+  - **`content`** — intros, sections, and conclusion all use the same **ContentBlock** shape:
+    - **`content.intros`** — array of blocks. Each block: optional `title`, optional `video` `{ src, caption? }`, optional `paragraphs` (array of `{ text }`), optional `paragraphStyle: "list"` (default is plain `<p>`)
+    - **`content.sections`** — array of blocks. Each block: `title`, optional `image` `{ src, caption? }`, optional `paragraphs` (array of `{ text }`)
+    - **`content.conclusion`** — one block: `title`, `paragraphs` (array of `{ text }`)
   - `bibtex` — BibTeX string
+
+  JSDoc types in `data.js` define `Paragraph`, `ParagraphStyle`, `Video`, `Image`, `ContentBlock`, and `Content` for editor support.
+
 - **`static/js/index.js`** — Template render and Handlebars helpers.
-- **`static/css/`** — Styles (Bulma + `index.css`).
+- **`static/css/`** — Styles (Bulma + `index.css`). ContentBlock media uses `.content-block-media` and `.content-block-caption`.
 - **`static/images/`** — Figures and assets.
+- **`static/videos/`** — Optional; put video files here and reference as `video: { src: "./static/videos/…", caption: "…" }` in an intro block.
 
 Optional: `navbar` with `home_link` and `more_research` (array of `{ name, link }`) to show the top nav.
 
 ## Recent updates
 
-- **Typography & layout**: Body font size 16px, line-height 1.7; section text in Georgia; consistent heading sizes; content max-width 760px; code/figcaption at 14px.
-- **Conclusion block**: Conclusion is now an object `{ title, paragraphs }` so the section heading is configurable.
-- **Intro block key**: Intro blocks use `content.intros` (replacing the previous `intro_blocks` key).
+- **ContentBlock**: Intros, sections, and conclusion share one block shape. Use `paragraphs: [{ text: "…" }]` everywhere; set `paragraphStyle: "list"` for bullet lists. Images/videos use `{ src, caption? }`. No more `type`/`text`/`items`/`image_name`; see `data.js` for the full structure and JSDoc types.
+- **Typography & layout**: Body font size 16px, line-height 1.7; section text in Georgia; consistent heading sizes; content max-width via `--content-width`; code/figcaption at 14px.
+- **Conclusion block**: Conclusion is `{ title, paragraphs }` with `paragraphs` as an array of `{ text }`.
 
 ## Website License
 

@@ -1,3 +1,33 @@
+/**
+ * Paragraph block display: plain uses p, list uses ul/li
+ * @typedef {"plain" | "list"} ParagraphStyle
+ *
+ * Single paragraph: optional style, defaults to block-level paragraphStyle
+ * @typedef {{
+ *   text: string;
+ *   style?: ParagraphStyle;
+ * }} Paragraph
+ *
+ * @typedef {{ src: string; caption?: string }} Video
+ * @typedef {{ src: string; caption?: string }} Image
+ *
+ * Unified content block: shared by intro / section / conclusion.
+ * Rendering: show video when present; when paragraphs exist use p or ul/li per paragraphStyle.
+ * @typedef {{
+ *   title?: string;
+ *   paragraphs?: Paragraph[];
+ *   paragraphStyle?: ParagraphStyle;
+ *   video?: Video;
+ *   image?: Image;
+ * }} ContentBlock
+ *
+ * @typedef {{
+ *   intros: ContentBlock[];
+ *   sections: ContentBlock[];
+ *   conclusion: ContentBlock;
+ * }} Content
+ */
+
 const paper = {
   metadata: {
     title: "This is a title",
@@ -64,43 +94,60 @@ const paper = {
   content: {
     intros: [
       {
-        type: "abstract",
         title: "Abstract",
-        text: "This is the abstract of the paper. It provides a brief overview of the research and its significance.",
+        paragraphs: [
+          {
+            text: "This is the abstract of the paper. It provides a brief overview of the research and its significance.",
+          },
+        ],
       },
       {
-        type: "contributions",
         title: "Key Contributions",
-        items: [
-          "First key contribution",
-          "Second key contribution",
-          "Third key contribution",
+        paragraphs: [
+          { text: "First key contribution" },
+          { text: "Second key contribution" },
+          { text: "Third key contribution" },
         ],
+        paragraphStyle: "list",
       },
     ],
     sections: [
       {
         title: "Architecture",
-        image: "./static/images/sample.jpg",
-        image_name: "Figure 1 — Architecture",
-        text: "The architecture consists of...",
+        image: {
+          src: "./static/images/sample.jpg",
+          caption: "Figure 1 — Architecture",
+        },
+        paragraphs: [
+          { text: "The architecture consists of..." },
+        ],
       },
       {
         title: "Experiments",
-        image: "./static/images/sample.jpg",
-        image_name: "Figure 2 — Experiments",
-        text: "Our experiments show that...",
+        image: {
+          src: "./static/images/sample.jpg",
+          caption: "Figure 2 — Experiments",
+        },
+        paragraphs: [
+          { text: "Our experiments show that..." },
+        ],
       },
       {
         title: "Case Study",
-        image: "./static/images/sample.jpg",
-        image_name: "Figure 3 — Case Study",
-        text: "In this case study, we demonstrate...",
+        image: {
+          src: "./static/images/sample.jpg",
+          caption: "Figure 3 — Case Study",
+        },
+        paragraphs: [
+          { text: "In this case study, we demonstrate..." },
+        ],
       },
     ],
     conclusion: {
       title: "Conclusion",
-      paragraphs: ["In conclusion, our work demonstrates..."],
+      paragraphs: [
+        { text: "In conclusion, our work demonstrates..." },
+      ],
     },
   },
   bibtex: `@article{xxx,
